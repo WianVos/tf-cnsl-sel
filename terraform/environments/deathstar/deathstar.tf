@@ -50,6 +50,18 @@ resource "aws_security_group" "deathstar-consul" {
   ingress {
     from_port = 0
     to_port   = 65535
+    protocol  = "tcp"
+  }
+
+  egress {
+    from_port = 0
+    to_port   = 65535
+    protocol  = "tcp"
+  }
+
+  ingress {
+    from_port = 0
+    to_port   = 65535
     protocol  = "udp"
     self      = true
   }
