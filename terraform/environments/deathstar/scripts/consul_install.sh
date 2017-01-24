@@ -23,7 +23,7 @@ sudo mv consul /usr/local/bin/consul
 sudo mkdir -p /opt/consul/data
 
 # Read from the file we created
-SERVER_COUNT=$(cat /tmp/consul-server-count | tr -d '\n')
+SERVER_COUNT=$(cat /tmp/consul_server_count | tr -d '\n')
 CONSUL_JOIN=$(cat /tmp/consul-server-addr | tr -d '\n')
 
 # Write the flags to a temporary file
