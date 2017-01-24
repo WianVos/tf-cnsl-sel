@@ -96,7 +96,7 @@ resource "aws_instance" "deathstar_consul" {
   }
 
   tags {
-    Name       = "${var.tagName}-${count.index}"
+    Name       = "deathstar-consul-${count.index}"
     ConsulRole = "Server"
   }
 
@@ -109,8 +109,8 @@ resource "aws_instance" "deathstar_consul" {
   # put the servercount and adresses in a file on the instance
   provisioner "remote-exec" {
     inline = [
-      "echo ${var.servers} > /tmp/consul-server-count",
-      "echo ${aws_instance.server.0.private_dns} > /tmp/consul-server-addr",
+      "echo ${var.consul_server_count} > /tmp/consul_server_count",
+      "echo ${aws_instance.deathstar_consul.0.private_dns} > /tmp/consul-server-addr",
     ]
   }
 
@@ -128,5 +128,5 @@ resource "aws_instance" "deathstar_consul" {
 # this defines the outputs rendered by terraform if all is set and done
 
 output "public_dns" {
-  value = "${aws_instance.deathstar.public_dns}"
+  value = "${aws_instance.deathstar_consul.0.public_dns}"
 }
