@@ -102,8 +102,8 @@ resource "aws_instance" "deathstar_consul" {
 
   #
   provisioner "file" {
-    source      = "./environments/deathstar/files/consul_debian_upstart.conf"
-    destination = "/tmp/upstart.conf"
+    source      = "./environments/deathstar/files/consul.service"
+    destination = "/tmp/consul.service"
   }
 
   # put the servercount and adresses in a file on the instance
