@@ -37,7 +37,7 @@ resource "aws_key_pair" "deathstar" {
 
 resource "aws_security_group" "deathstar-consul" {
   name        = "deathstar-consul"
-  description = "Consul internal traffic for The Deathstar and it's cantine"
+  description = "Consul internal traffic for The Deathstar"
 
   // These are for internal traffic
   ingress {
