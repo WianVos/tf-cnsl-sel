@@ -102,7 +102,7 @@ resource "aws_instance" "deathstar_consul" {
 
   #
   provisioner "file" {
-    source      = "./files/consul_debian_upstart.conf"
+    source      = "./environments/deathstar/files/consul_debian_upstart.conf"
     destination = "/tmp/upstart.conf"
   }
 
@@ -118,9 +118,9 @@ resource "aws_instance" "deathstar_consul" {
   # broken up in to three functional pieces
   provisioner "remote-exec" {
     scripts = [
-      "./scripts/install.sh",
-      "./scripts/service.sh",
-      "./scripts/ip_tables.sh",
+      "./environments/deathstar/scripts/consul_install.sh",
+      "./environments/deathstar/scripts/consul_service.sh",
+      "./environments/deathstar/scripts/consul_iptables.sh",
     ]
   }
 }
