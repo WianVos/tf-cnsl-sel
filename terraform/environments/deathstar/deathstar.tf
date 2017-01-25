@@ -140,31 +140,6 @@ resource "aws_instance" "deathstar_consul" {
 
 # this defines the outputs rendered by terraform if all is set and done
 
-resource "null_resource" "deathstar_consul" {
-  # if any of the cluster instances change .. reprovision this
-  triggers {
-    cluster_instance_ids = "${join(",", aws_instance.deathstar_consul.*.id)}"
-  }
-
-  # Bootstrap script can run on any instance of the cluster
-  # So we just choose the first in this case
-  connection {
-    host        = "${aws_instance.deathstar_consul.public_ip}"
-    type        = "ssh"
-    user        = "ubuntu"
-    private_key = "${file("ssh_keys/rsa")}"
-    timeout     = "1m"
-    agent       = false
-  }
-
-  # run the terraform installation
-  provisioner "remote-exec" {
-    scripts = [
-      "./environments/deathstar/scripts/terraform_install.sh",
-    ]
-  }
-}
-
 output "public_dns" {
-  value = "${aws_instance.deathstar_consul.0.public_dns}"
+  value = ["${aws_instance.deathstar_consul.*.public_dns}"]
 }
