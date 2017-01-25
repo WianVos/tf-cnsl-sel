@@ -19,11 +19,11 @@ echo "Installing Terraform..."
 unzip terraform.zip > /dev/null
 chmod +x terraform
 sudo mkdir /opt/terraform
-sudo chmod 0664 /opt/terraform
+sudo chmod -r 0664 /opt/terraform
 sudo mv terraform /opt/terraform
 
 echo "initializing the consul state backend"
-cd /opt/terraform
+sudo /bin/cd /opt/terraform
 ./terraform remote config \
     -backend=consul \
     -backend-config="path=tf/state"
