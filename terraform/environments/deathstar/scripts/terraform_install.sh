@@ -25,9 +25,4 @@ sudo mv terraform /opt/terraform
 
 echo "initializing the consul state backend"
 cd /opt/terraform
-./terraform remote config \
-    -backend=consul \
-    -backend-config="path=tf/state"
-if [ $? -ne 0 ] ;then
-  exit 0
-fi
+./terraform remote config -backend=consul -backend-config="path=tf/state" || true
