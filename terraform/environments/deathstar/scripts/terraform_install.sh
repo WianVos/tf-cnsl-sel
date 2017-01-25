@@ -13,7 +13,7 @@ fi
 echo "Fetching Terraform..."
 TERRAFORM_VERSION=0.8.4
 cd /tmp
-curl https://releases.hashicorp.com/terraform/terraform_${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip -o terraform.zip
+curl https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip -o terraform.zip
 
 echo "Installing Terraform..."
 unzip terraform.zip > /dev/null
