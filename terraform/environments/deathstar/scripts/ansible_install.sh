@@ -13,4 +13,5 @@ if [ -x "$(command -v apt-get)" ]; then
   sudo pip install xmltodict
   sudo pip install pywinrm
   sudo pip install ansible
+  sudo pip install python-consul
 fi

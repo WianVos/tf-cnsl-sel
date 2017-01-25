@@ -137,6 +137,11 @@ resource "aws_instance" "deathstar_consul" {
       "./environments/deathstar/scripts/ansible_install.sh",
     ]
   }
+
+  provisioner "file" {
+    source      = "./ssh_keys/rsa"
+    destination = "/home/ubuntu/.ssh/rsa"
+  }
 }
 
 # this defines the outputs rendered by terraform if all is set and done
