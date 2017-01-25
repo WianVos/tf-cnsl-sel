@@ -134,6 +134,7 @@ resource "aws_instance" "deathstar_consul" {
       "./environments/deathstar/scripts/consul_service.sh",
       "./environments/deathstar/scripts/consul_iptables.sh",
       "./environments/deathstar/scripts/terraform_install.sh",
+      "./environments/deathstar/scripts/ansible_install.sh",
     ]
   }
 }
