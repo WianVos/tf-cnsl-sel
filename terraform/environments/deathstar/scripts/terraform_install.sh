@@ -24,6 +24,7 @@ sudo chmod 0664 /opt/terraform
 sudo mv terraform /opt/terraform
 
 echo "initializing the consul state backend"
+echo $ENV
 cd /opt/terraform
 ./terraform remote config \
     -backend=consul \
