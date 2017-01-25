@@ -18,11 +18,12 @@ curl https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${T
 echo "Installing Terraform..."
 unzip terraform.zip > /dev/null
 chmod +x terraform
-mkdir /opt/terraform
+sudo mkdir /opt/terraform
+sudo chmod 0664 /opt/terraform
 sudo mv terraform /opt/terraform
 
 echo "initializing the consul state backend"
-cd /opt/terraform
+sudo cd /opt/terraform
 ./terraform remote config \
     -backend=consul \
     -backend-config="path=tf/state"
