@@ -56,15 +56,15 @@ terraform/get:
 
 terraform/plan:
 	$(call chdir)
-	./terraform plan -state=./environments/$(ENV_NAME)/terraform.tfstate
+	./terraform plan -state=./environments/$(ENV_NAME)/terraform.tfstate -var aws_access_key=$(AWS_ACCESS_KEY) -var aws_secret_key=$(AWS_SECRET_KEY) ./environments/$(ENV_NAME)/
 	git status	echo "No changes should exist in this repo."
 
 terraform/apply: check_env
 	$(call chdir)
 	if [ ! -f ./environments/$(ENV_NAME)/terraform.tfstate ]; then \
-	  ./terraform apply -no-color -var aws_access_key=$(AWS_ACCESS_KEY) -var aws_secret_key=$(AWS_SECRET_KEY)  ./environments/$(ENV_NAME)/; \
+	  ./terraform apply -no-color -parallelism=3 -var aws_access_key=$(AWS_ACCESS_KEY) -var aws_secret_key=$(AWS_SECRET_KEY)  ./environments/$(ENV_NAME)/; \
 		fi
-	./terraform apply -no-color -var aws_access_key=$(AWS_ACCESS_KEY) -var aws_secret_key=$(AWS_SECRET_KEY)  -state=./terraform.tfstate ./environments/$(ENV_NAME)/
+	./terraform apply -no-color -parallelism=3 -var aws_access_key=$(AWS_ACCESS_KEY) -var aws_secret_key=$(AWS_SECRET_KEY)  -state=./terraform.tfstate ./environments/$(ENV_NAME)/
 	git add .
 	git commit -m "Makefile) Terraform Apply, syncing terraform.tfstate"
 	git push
@@ -72,9 +72,9 @@ terraform/apply: check_env
 terraform/destroy: check_env
 	$(call chdir)
 	if [ ! -f ./terraform.tfstate ]; then \
-	  ./terraform destroy -no-color -var aws_access_key=$(AWS_ACCESS_KEY) -var aws_secret_key=$(AWS_SECRET_KEY) ./environments/$(ENV_NAME)/; \
+	  ./terraform destroy -no-color -parallelism=3 -var aws_access_key=$(AWS_ACCESS_KEY) -var aws_secret_key=$(AWS_SECRET_KEY) ./environments/$(ENV_NAME)/; \
 		fi
-	./terraform destroy -force -no-color -var aws_access_key=$(AWS_ACCESS_KEY) -var aws_secret_key=$(AWS_SECRET_KEY)  -state=./terraform.tfstate ./environments/$(ENV_NAME)/
+	./terraform destroy -force -no-color -parallelism=3 -var aws_access_key=$(AWS_ACCESS_KEY) -var aws_secret_key=$(AWS_SECRET_KEY)  -state=./terraform.tfstate ./environments/$(ENV_NAME)/
 	git add .
 	git commit -m "Makefile) Terraform Apply, syncing terraform.tfstate"
 	git push
@@ -83,4 +83,4 @@ tfplan: | tfsetup terraform/clean terraform/get terraform/plan
 tfapply: | tfsetup terraform/clean terraform/get terraform/apply
 tfdestroy: | tfsetup terraform/clean terraform/get terraform/destroy
 tfsetup: | terraform/install terraform/keygen
-tfrecycle: | tfsetup terraform/clean terraform/get terraform/destroy terraform/apply
+tfrecycle: | terraform/destroy terraform/apply
