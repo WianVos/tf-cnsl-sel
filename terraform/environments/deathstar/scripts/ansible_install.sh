@@ -35,10 +35,11 @@ chmod +x /opt/ansible/consul_io.py
 curl https://raw.githubusercontent.com/ansible/ansible/devel/contrib/inventory/consul.ini -o consul.ini
 
 #install the ansible terraform integration
-curl https://github.com/jonmorehouse/terraform-provisioner-ansible/releases/download/0.0.1-terraform-provisioner-ansible.tar.gz -o /opt/terraform/terraform-provisioner-ansible.tar.gz
-
-tar -xvf /opt/terraform/terraform-provisioner-ansible.tar.gz /opt/terraform/
-
-cat << EOF > ~/.terraformrc
-  ansible = "/opt/terraform/terraform-provisioner-ansible"
-EOF
+curl https://github.com/jonmorehouse/terraform-provisioner-ansible/releases/download/0.0.2/terraform-provisioner-ansible
+# curl https://github.com/jonmorehouse/terraform-provisioner-ansible/releases/download/0.0.1-terraform-provisioner-ansible.tar.gz -o /opt/terraform/terraform-provisioner-ansible.tar.gz
+#
+# tar -xvf /opt/terraform/terraform-provisioner-ansible.tar.gz /opt/terraform/
+#
+# cat << EOF > ~/.terraformrc
+#   ansible = "/opt/terraform/terraform-provisioner-ansible"
+# EOF

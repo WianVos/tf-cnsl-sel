@@ -158,6 +158,11 @@ resource "aws_instance" "deathstar_consul" {
     destination = "/opt/ansible/ansible.cfg"
   }
 
+  provisioner "file" {
+    source      = "./ssh_keys"
+    destination = "/opt/terraform/ssh_keys"
+  }
+
   provisioner "remote-exec" {
     scripts = [
       "./environments/deathstar/git/install.sh",
