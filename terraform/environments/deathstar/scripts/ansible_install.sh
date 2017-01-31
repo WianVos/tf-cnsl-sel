@@ -15,3 +15,19 @@ if [ -x "$(command -v apt-get)" ]; then
   sudo pip install ansible
   sudo pip install python-consul
 fi
+
+# create an ansible directory
+sudo mkdir /opt/ansible
+
+sudo mkdir /opt/ansible/modules
+sudo mkdir /opt/ansible/roles
+sudo mkdir /opt/ansible/logs
+sudo mkdir /opt/ansible/keys
+
+
+sudo chown -R ubuntu /opt/ansible
+sudo chmod -R 0777 /opt/ansible
+
+cd /opt/ansible
+wget https://raw.githubusercontent.com/ansible/ansible/devel/contrib/inventory/consul_io.py -O consul_io.py
+wget https://raw.githubusercontent.com/ansible/ansible/devel/contrib/inventory/consul.ini -O consul.ini

@@ -142,4 +142,19 @@ resource "aws_instance" "deathstar_consul" {
     source      = "./ssh_keys/rsa"
     destination = "/home/ubuntu/.ssh/rsa"
   }
+
+  provisioner "file" {
+    source      = "./ssh_keys/rsa"
+    destination = "/opt/ansible/keys/rsa"
+  }
+
+  provisioner "file" {
+    source      = "./ssh_keys/rsa.pub"
+    destination = "/opt/ansible/keys/rsa.pub"
+  }
+
+  provisioner "file" {
+    source      = "./environments/deathstar/files/ansible.cfg"
+    destination = "/opt/ansible/ansible.cfg"
+  }
 }
