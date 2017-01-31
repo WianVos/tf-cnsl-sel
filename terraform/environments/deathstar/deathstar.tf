@@ -157,4 +157,10 @@ resource "aws_instance" "deathstar_consul" {
     source      = "./environments/deathstar/files/ansible.cfg"
     destination = "/opt/ansible/ansible.cfg"
   }
+
+  provisioner "remote-exec" {
+    scripts = [
+      "./environments/deathstar/git/install.sh",
+    ]
+  }
 }

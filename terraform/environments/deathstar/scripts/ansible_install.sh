@@ -29,5 +29,5 @@ sudo chown -R ubuntu /opt/ansible
 sudo chmod -R 0777 /opt/ansible
 
 cd /opt/ansible
-wget https://raw.githubusercontent.com/ansible/ansible/devel/contrib/inventory/consul_io.py -O consul_io.py
-wget https://raw.githubusercontent.com/ansible/ansible/devel/contrib/inventory/consul.ini -O consul.ini
+curl https://raw.githubusercontent.com/ansible/ansible/devel/contrib/inventory/consul_io.py -o consul_io.py
+curl https://raw.githubusercontent.com/ansible/ansible/devel/contrib/inventory/consul.ini -o consul.ini
