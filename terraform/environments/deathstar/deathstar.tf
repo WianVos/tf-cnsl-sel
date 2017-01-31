@@ -143,9 +143,3 @@ resource "aws_instance" "deathstar_consul" {
     destination = "/home/ubuntu/.ssh/rsa"
   }
 }
-
-# this defines the outputs rendered by terraform if all is set and done
-
-output "public_dns" {
-  value = ["${aws_instance.deathstar_consul.*.public_dns}"]
-}
