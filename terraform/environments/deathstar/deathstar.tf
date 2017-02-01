@@ -26,6 +26,15 @@ data "aws_ami" "ubuntu" {
   owners = ["099720109477"] # Canonical
 }
 
+data "template_file" "source_env" {
+  template = "${file("environments/deathstar/templates/source_env.tmpl")}"
+
+  vars {
+    aws_access_key = "${var.aws_access_key}"
+    aws_secret_key = "${var.aws_secret_key}"
+  }
+}
+
 # configure an aws keypair to use
 # keys are used from the ssh_keys folder located in the folder where this .tf file resides in
 resource "aws_key_pair" "deathstar" {
@@ -136,6 +145,11 @@ resource "aws_instance" "deathstar_consul" {
       "./environments/deathstar/scripts/terraform_install.sh",
       "./environments/deathstar/scripts/ansible_install.sh",
     ]
+  }
+
+  provisioner "file" {
+    content     = "${data.template_file.source_env.rendered}"
+    destination = "/opt/terraform/.source_env"
   }
 
   provisioner "file" {
