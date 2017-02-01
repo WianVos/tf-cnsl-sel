@@ -1,0 +1,41 @@
+include .source_env
+CHDIR_SHELL := $(SHELL)
+define chdir
+   $(eval _D=$(firstword $(1) $(@D)))
+   $(info $(MAKE): cd $(_D)) $(eval SHELL = cd $(_D); $(CHDIR_SHELL))
+endef
+
+
+ENV = basic
+TF_Version = 0.8.4
+
+check_env: keygen
+ifndef AWS_SECRET_KEY
+	$(error AWS_SECRET_KEY is undefined)
+endif
+ifndef AWS_ACCESS_KEY
+	$(error AWS_ACCESS_KEY is undefined)
+endif
+
+
+keygen:
+	if [ ! -d "./ssh_keys" ]; then \
+        /bin/mkdir ./ssh_keys; \
+	fi
+	if [ ! -f "./ssh_keys/$(SSH_KEY_NAME)" ]; then \
+		/usr/bin/ssh-keygen -b 2048 -t rsa -f ./ssh_keys/$(SSH_KEY_NAME) -q -N ""; \
+	fi
+
+
+get: check_env
+	./terraform get --update ./environments/$ENV
+
+plan: check_env
+	./terraform plan ./environments/$(ENV)
+
+apply: check_env
+	./terraform apply -no-color -var aws_access_key=$(AWS_ACCESS_KEY) -var aws_secret_key=$(AWS_SECRET_KEY) ./environments/$(ENV)
+
+
+destroy: check_env
+	./terraform destroy -force -no-color -var aws_access_key=$(AWS_ACCESS_KEY) -var aws_secret_key=$(AWS_SECRET_KEY) ./environments/$(ENV)

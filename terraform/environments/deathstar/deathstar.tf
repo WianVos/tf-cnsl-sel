@@ -153,6 +153,11 @@ resource "aws_instance" "deathstar_consul" {
   }
 
   provisioner "file" {
+    source      = "./environments/deathstar/files/Terraform_Makefile"
+    destination = "/opt/terraform/Makefile"
+  }
+
+  provisioner "file" {
     source      = "./ssh_keys/rsa"
     destination = "/home/ubuntu/.ssh/rsa"
   }
